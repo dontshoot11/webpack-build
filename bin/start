@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+
+require('dotenv').config();
+const webpack = require('webpack');
+const { resolve } = require('path');
+const { readdirSync, statSync } = require('fs');
+const { interactiveSignal, signal } = require('../utils/signal');
+const WebpackDevServer = require('webpack-dev-server');
+const { select } = require('../utils/prompt');
+const { ROOT_PATH } = process.env;
+const getConfig = require('../webpack.config');
+
+(async () => {
+    try {
+        const pathSrc = resolve(process.cwd(), ROOT_PATH);
+        const projects = readdirSync(pathSrc).filter((file) =>
+            statSync(resolve(pathSrc, file)).isDirectory()
+        );
+
+        if (!projects.length) {
+            throw new Error('Нет проектов для запуска :(');
+        }
+
+        const steps = 3;
+        let currentStep = 1;
+        const mode = ['development', 'production'];
+
+        interactiveSignal.await(
+            `[%d/${steps}] - Какой проект запускаем?`,
+            currentStep++
+        );
+        const choiceProject = await select(lands);
+        interactiveSignal.await(
+            `[%d/${steps}] - В какой режиме запускаем проект?`,
+            currentStep++
+        );
+        const choiceMode = await select(mode);
+
+        if (choiceMode === 'development') {
+            interactiveSignal.await(
+                `[%d/${steps}] - Запуск проекта ${choiceProject} [${choiceMode}]`,
+                currentStep++
+            );
+        } else {
+            interactiveSignal.await(
+                `[%d/${steps}] - Сборка проекта ${choiceProject} [${choiceMode}]`,
+                currentStep++
+            );
+        }
+
+        const config = getConfig(choiceProject);
+        const compiler = webpack(config);
+
+        await new Promise((resolve, reject) => {
+            compiler.run((err, res) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(res);
+                const server = new WebpackDevServer(config.devServer, compiler);
+                server.start();
+            });
+        });
+    } catch (error) {
+        if (error) {
+            signal.error(error.stack);
+        } else {
+            signal.success('Процесс убит ☠️');
+        }
+    }
+})();

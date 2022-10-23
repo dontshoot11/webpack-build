@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+require('dotenv').config();
+
+const { generate } = require('../generator');
+const { prompt } = require('../utils/prompt');
+const { signal } = require('../utils/signal');
+const { resolve } = require('path');
+const { ROOT_PATH } = process.env;
+
+(async function main() {
+    try {
+        const projectName = await prompt('Введите имя проекта: ');
+        generate(resolve(process.cwd(), ROOT_PATH, projectName));
+    } catch ({ message }) {
+        if (message === 'canceled') {
+            signal.success('Процесс убит ☠️');
+        } else {
+            signal.error(message);
+            main();
+        }
+    }
+})();

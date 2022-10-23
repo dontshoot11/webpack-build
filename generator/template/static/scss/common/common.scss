@@ -1,0 +1,32 @@
+@import './normalize';
+@import './reset';
+@import './mixin';
+@import './container';
+
+html {
+    height: 100%;
+    font-size: 1px;
+
+    @include tablets {
+        font-size: 0.85px;
+    }
+    @include desktop {
+        font-size: 0.8px;
+    }
+    @include desktopMax {
+        font-size: 1px;
+    }
+}
+
+body {
+    height: 100%;
+}
+
+.wrapper {
+    background: $main-bg;
+    font-size: 16rem;
+    min-height: 100%;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
