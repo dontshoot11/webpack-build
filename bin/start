@@ -29,7 +29,7 @@ const getConfig = require('../webpack.config');
             `[%d/${steps}] - Какой проект запускаем?`,
             currentStep++
         );
-        const choiceProject = await select(lands);
+        const choiceProject = await select(projects);
         interactiveSignal.await(
             `[%d/${steps}] - В какой режиме запускаем проект?`,
             currentStep++
