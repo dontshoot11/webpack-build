@@ -1,27 +1,20 @@
-const { Signale } = require("signale")
+const { Signale } = require('signale');
 
 const config = {
-    displayTimestamp: true
-}
-
-const interactiveSignal = new Signale({
-    interactive: true,
-    scope: 'copitrades lands'
-})
+    displayTimestamp: true,
+};
 
 const signal = new Signale({
     types: {
         complete: {
-          badge: ' ',
-          label: 'create',
-        }
-      }
-})
+            badge: ' ',
+            label: 'create',
+        },
+    },
+});
 
-signal.config(config)
-interactiveSignal.config(config)
+signal.config(config);
 
 module.exports = {
-    interactiveSignal,
-    signal
-}
+    signal,
+};

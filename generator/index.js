@@ -1,4 +1,3 @@
-const { resolve } = require('path');
 const fs = require('fs-extra');
 const { signal } = require('../utils/signal');
 
