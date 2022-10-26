@@ -1,7 +1,6 @@
 const { resolve } = require('path');
 const fs = require('fs-extra');
 const { signal } = require('../utils/signal');
-const { ROOT_PATH } = process.env;
 
 const generate = (path, deps) => {
     if (fs.existsSync(path)) {
