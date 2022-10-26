@@ -13,8 +13,13 @@ const signal = new Signale({
     },
 });
 
+const interactiveSignal = new Signale({
+    interactive: true,
+});
+
 signal.config(config);
 
 module.exports = {
     signal,
+    interactiveSignal,
 };
