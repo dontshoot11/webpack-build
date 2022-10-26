@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 const fs = require('fs-extra');
 const { signal } = require('../utils/signal');
+const { ROOT_PATH } = process.env;
 
 const generate = (path, deps) => {
     if (fs.existsSync(path)) {
@@ -11,7 +12,7 @@ const generate = (path, deps) => {
         fs.mkdirSync(path);
     }
 
-    const template = resolve(process.cwd(), '/generator/template');
+    const template = resolve(process.cwd(), ROOT_PATH, '/generator/template');
 
     signal.await('Генерация нового проекта');
     fs.copy(
