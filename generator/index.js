@@ -12,20 +12,16 @@ const generate = (path, deps) => {
         fs.mkdirSync(path);
     }
 
-    const template = resolve(process.cwd(), ROOT_PATH, '/generator/template');
+    const template = `${process.cwd()}/generator/template`;
 
     signal.await('Генерация нового проекта');
-    fs.copy(
-        '/Users/n.artem/webpack-build/generator/template',
-        path,
-        function (err) {
-            if (err) {
-                console.error(err, template);
-            } else {
-                console.log('success!');
-            }
+    fs.copy(template, path, function (err) {
+        if (err) {
+            console.error(err, template);
+        } else {
+            console.log('success!');
         }
-    );
+    });
 
     signal.success(`Проект успешно создан`);
 };
