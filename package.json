@@ -46,9 +46,8 @@
         "style-loader": "^3.3.1",
         "webpack": "^5.74.0",
         "webpack-cli": "^4.10.0",
-        "webpack-dev-server": "^4.11.1"
-    },
-    "dependencies": {
-        "@babel/polyfill": "^7.12.1"
+        "webpack-dev-server": "^4.11.1",
+        "@babel/polyfill": "^7.12.1",
+        "image-webpack-loader": "^8.1.0"
     }
 }
