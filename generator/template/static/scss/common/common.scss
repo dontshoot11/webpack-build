@@ -3,6 +3,11 @@
 @import './mixin';
 @import './container';
 
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/montserrat.woff2') format('woff2');
+}
+
 html {
     height: 100%;
     font-size: 1px;
@@ -25,6 +30,7 @@ body {
 .wrapper {
     background: $main-bg;
     font-size: 16rem;
+    font-family: 'Montserrat';
     min-height: 100%;
     overflow: hidden;
     display: grid;

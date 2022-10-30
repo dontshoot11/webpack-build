@@ -16,12 +16,13 @@ module.exports = (env) => {
             port: DEVSERVER_PORT,
             host: DEVSERVER_HOST,
             open: true,
+            static: './static', //TODO  заставить вотчер работац
         },
         entry: {
             index: `./projects/${env.project}/index.pug`, //чтобы подключить визуальный интерфейс, убер env
         },
         output: {
-            path: path.resolve(__dirname, 'dist'), //TODO складывать в соотв.папку
+            path: path.resolve(__dirname, `projects/${env.project}/`, 'dist'),
             clean: true,
             filename: '[name].[contenthash].js',
         },
@@ -57,6 +58,13 @@ module.exports = (env) => {
                         },
                         'sass-loader',
                     ],
+                },
+                {
+                    test: /\.woff2?$/i,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'fonts/[name][ext]',
+                    },
                 },
                 {
                     test: /\.m?js$/,
