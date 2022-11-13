@@ -1,0 +1,38 @@
+@import './files/normalize';
+@import './files/reset';
+@import './files/mixin';
+@import './files/container';
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/montserrat.woff2') format('woff2');
+}
+
+html {
+    height: 100%;
+    font-size: 1px;
+
+    @include tablets {
+        font-size: 0.85px;
+    }
+    @include desktop {
+        font-size: 0.8px;
+    }
+    @include desktopMax {
+        font-size: 1px;
+    }
+}
+
+body {
+    height: 100%;
+}
+
+.wrapper {
+    background: $main-bg;
+    font-size: 16rem;
+    font-family: 'Montserrat';
+    min-height: 100%;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
