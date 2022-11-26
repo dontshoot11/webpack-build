@@ -15,7 +15,6 @@ module.exports = (env) => {
         if (file.match(/\.pug$/)) {
            const name = file.split('.')[0];
             entries[name] = `./projects/${env.project}/${file}`;
-            console.log(entries)
         }})
 
     return {
