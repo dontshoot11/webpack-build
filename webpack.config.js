@@ -1,13 +1,23 @@
 const path = require('path');
+const fs = require('fs-extra');
 const PugPlugin = require('pug-plugin');
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
 const devtool = devMode ? 'source-map' : undefined;
 const { DEVSERVER_PORT, DEVSERVER_HOST } = process.env;
-
+ 
 module.exports = (env) => {
     //TODO чтобы подключить визуальный интерфейс, переименуй env в project
+    const entries = {};
+    const files = fs.readdirSync(`./projects/${env.project}/`);
+    files.forEach(file => {
+        if (file.match(/\.pug$/)) {
+           const name = file.split('.')[0];
+            entries[name] = `./projects/${env.project}/${file}`;
+            console.log(entries)
+        }})
+
     return {
         mode,
         target,
@@ -18,9 +28,7 @@ module.exports = (env) => {
             open: true,
             static: './static', //TODO  заставить вотчер работац
         },
-        entry: {
-            index: `./projects/${env.project}/index.pug`, //чтобы подключить визуальный интерфейс, убер env
-        },
+        entry: entries,
         output: {
             path: path.resolve(__dirname, `projects/${env.project}/`, 'dist'),
             clean: true,
